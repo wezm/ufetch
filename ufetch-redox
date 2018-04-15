@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+# ufetch-redox - tiny system info for Redox OS
+
+## INFO
+
+# user is already defined
+host="$(cat /etc/hostname)"
+os='Redox OS'
+kernel="$(uname -sr)"
+uptime="$(uptime)"
+#packages="$(pacman -Q | wc -l)"
+shell="ion"
+if [ -z "${WM}" ]; then
+	WM="Orbital"
+fi
+
+## DEFINE COLORS
+
+# probably don't change these
+#echo -e "\\t\\e[30m▓▓ \\e[31m▓▓ \\e[32m▓▓ \\e[33m▓▓ \\e[34m▓▓ \\e[35m▓▓ \\e[36m▓▓ \\e[37m▓▓ \\e[0m"
+bold=""
+black="\\e[30m"
+red="\\e[31m"
+green="\\e[32m"
+yellow="\\e[33m"
+blue="\\e[34m"
+magenta="\\e[35m"
+cyan="\\e[36m"
+white="\\e[37m"
+reset="\\e[0m"
+	printf "\\t\\e[36m%6s  " "$1"
+	printf "\\e[0m%s\\n" "$2"
+
+# you can change these
+lc="${reset}${bold}${cyan}"		# labels
+nc="${reset}${bold}${magenta}"		# user and hostname
+ic="${reset}${bold}${white}"	# info
+c0="${reset}${bold}${white}"		# first color
+c1="${reset}${cyan}"			# second color
+
+## OUTPUT
+
+echo -e "${c0}      ·  ·      ${nc}${USER}${ic}@${nc}${host}${reset}"
+echo -e "${c0}   ·    _   ·   ${lc}OS:        ${ic}${os}${reset}"
+echo -e "${c0}  ·    |_|   ·  ${lc}Kernel:    ${ic}${kernel}${reset}"
+echo -e "${c0}  ·    | \   ·  ${lc}Uptime:    ${ic}${uptime}${reset}"
+echo -e "${c0}   ·        ·   ${lc}Shell:     ${ic}${shell}${reset}"
+echo -e "${c0}      ·  ·      ${lc}WM:        ${ic}${WM}${reset}"
+echo
+echo -e "\\t\\e[30m▓▓ \\e[31m▓▓ \\e[32m▓▓ \\e[33m▓▓ \\e[34m▓▓ \\e[35m▓▓ \\e[36m▓▓ \\e[37m▓▓ \\e[0m"
+echo
